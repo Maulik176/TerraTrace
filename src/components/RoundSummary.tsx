@@ -1,28 +1,13 @@
-import { useEffect } from 'react';
-import { MapContainer, Marker, Polyline, TileLayer, useMap } from 'react-leaflet';
+import { useEffect, useMemo, useState } from 'react';
+import { GoogleMap, PolylineF } from '@react-google-maps/api';
 
+import GoogleAdvancedMarker from './GoogleAdvancedMarker';
 import { formatKm } from '../lib/format';
-import { GUESS_MARKER_ICON, TARGET_MARKER_ICON } from '../lib/map-icons';
+import { useGoogleMapsLoader } from '../lib/google-maps-loader';
 import type { RoundResult } from '../types/game';
 
-function FitBounds({ result }: { result: RoundResult }): null {
-  const map = useMap();
-
-  useEffect(() => {
-    map.fitBounds(
-      [
-        [result.guess.lat, result.guess.lng],
-        [result.target.lat, result.target.lng],
-      ],
-      {
-        padding: [30, 30],
-        maxZoom: 5,
-      },
-    );
-  }, [map, result.guess.lat, result.guess.lng, result.target.lat, result.target.lng]);
-
-  return null;
-}
+const WORLD_CENTER: google.maps.LatLngLiteral = { lat: 20, lng: 0 };
+const MAP_CONTAINER_STYLE = { width: '100%', height: '100%' } as const;
 
 type RoundSummaryProps = {
   result: RoundResult;
@@ -31,6 +16,36 @@ type RoundSummaryProps = {
 };
 
 function RoundSummary({ result, onNext, isFinalRound }: RoundSummaryProps): JSX.Element {
+  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_EMBED_API_KEY;
+  const mapId = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID || 'DEMO_MAP_ID';
+  const { isLoaded } = useGoogleMapsLoader(apiKey);
+
+  const polylinePath = useMemo(() => [result.guess, result.target], [result.guess, result.target]);
+
+  useEffect(() => {
+    if (!map || !isLoaded) {
+      return;
+    }
+
+    const bounds = new google.maps.LatLngBounds();
+    bounds.extend(result.guess);
+    bounds.extend(result.target);
+    map.fitBounds(bounds, 80);
+  }, [isLoaded, map, result.guess, result.target]);
+
+  const options = useMemo<google.maps.MapOptions>(
+    () => ({
+      fullscreenControl: false,
+      streetViewControl: false,
+      mapTypeControl: false,
+      clickableIcons: false,
+      minZoom: 2,
+      mapId,
+    }),
+    [mapId],
+  );
+
   return (
     <section className="panel flex flex-col gap-4 p-4 md:p-5">
       <header>
@@ -51,22 +66,47 @@ function RoundSummary({ result, onNext, isFinalRound }: RoundSummaryProps): JSX.
       </div>
 
       <div className="h-64 overflow-hidden rounded-2xl border border-slate-200">
-        <MapContainer center={[20, 0]} zoom={2} scrollWheelZoom={false} className="h-full w-full">
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <FitBounds result={result} />
-          <Marker position={[result.guess.lat, result.guess.lng]} icon={GUESS_MARKER_ICON} />
-          <Marker position={[result.target.lat, result.target.lng]} icon={TARGET_MARKER_ICON} />
-          <Polyline
-            positions={[
-              [result.guess.lat, result.guess.lng],
-              [result.target.lat, result.target.lng],
-            ]}
-            color="#0ea5e9"
-          />
-        </MapContainer>
+        {!apiKey ? (
+          <div className="flex h-full items-center justify-center bg-slate-50 p-4 text-center text-sm text-slate-600">
+            Add `VITE_GOOGLE_MAPS_EMBED_API_KEY` to show the result map.
+          </div>
+        ) : !isLoaded ? (
+          <div className="h-full animate-pulse bg-slate-100" />
+        ) : (
+          <GoogleMap
+            mapContainerStyle={MAP_CONTAINER_STYLE}
+            center={WORLD_CENTER}
+            zoom={2}
+            options={options}
+            onLoad={setMap}
+          >
+            <GoogleAdvancedMarker
+              map={map}
+              position={result.guess}
+              background="#0284c7"
+              borderColor="#0c4a6e"
+              title="Your guess"
+              zIndex={20}
+            />
+            <GoogleAdvancedMarker
+              map={map}
+              position={result.target}
+              background="#16a34a"
+              borderColor="#14532d"
+              title="Actual location"
+              zIndex={30}
+            />
+            <PolylineF
+              path={polylinePath}
+              options={{
+                strokeColor: '#0ea5e9',
+                strokeOpacity: 1,
+                strokeWeight: 3,
+                geodesic: true,
+              }}
+            />
+          </GoogleMap>
+        )}
       </div>
 
       <button type="button" className="btn-primary" onClick={onNext}>

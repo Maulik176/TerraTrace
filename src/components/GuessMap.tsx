@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { useCallback, useMemo, useState } from 'react';
+import { GoogleMap } from '@react-google-maps/api';
 
-import { GUESS_MARKER_ICON } from '../lib/map-icons';
+import GoogleAdvancedMarker from './GoogleAdvancedMarker';
+import { useGoogleMapsLoader } from '../lib/google-maps-loader';
 import type { Coordinates } from '../types/game';
 
 type GuessMapProps = {
@@ -10,59 +11,80 @@ type GuessMapProps = {
   locked?: boolean;
 };
 
-function EnsureMapSize(): null {
-  const map = useMap();
+const WORLD_CENTER: google.maps.LatLngLiteral = { lat: 20, lng: 0 };
+const MAP_CONTAINER_STYLE = { width: '100%', height: '100%' } as const;
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      map.invalidateSize();
-    }, 0);
+function GuessMap({ guess, onGuess, locked = false }: GuessMapProps): JSX.Element {
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_EMBED_API_KEY;
+  const mapId = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID || 'DEMO_MAP_ID';
+  const { isLoaded } = useGoogleMapsLoader(apiKey);
+  const [map, setMap] = useState<google.maps.Map | null>(null);
 
-    return () => window.clearTimeout(timer);
-  }, [map]);
+  const options = useMemo<google.maps.MapOptions>(
+    () => ({
+      fullscreenControl: false,
+      streetViewControl: false,
+      mapTypeControl: false,
+      clickableIcons: false,
+      gestureHandling: 'greedy',
+      mapId,
+    }),
+    [mapId],
+  );
 
-  return null;
-}
-
-function GuessPinSetter({
-  onGuess,
-  locked,
-}: {
-  onGuess: (coords: Coordinates) => void;
-  locked: boolean;
-}): null {
-  useMapEvents({
-    click(event) {
+  const onMapClick = useCallback(
+    (event: google.maps.MapMouseEvent) => {
       if (locked) {
         return;
       }
 
-      onGuess({ lat: event.latlng.lat, lng: event.latlng.lng });
+      const clickedLat = event.latLng?.lat();
+      const clickedLng = event.latLng?.lng();
+
+      if (typeof clickedLat !== 'number' || typeof clickedLng !== 'number') {
+        return;
+      }
+
+      onGuess({ lat: clickedLat, lng: clickedLng });
     },
-  });
+    [locked, onGuess],
+  );
 
-  return null;
-}
+  if (!apiKey) {
+    return (
+      <div className="flex h-[42vh] items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 p-4 text-center text-sm text-slate-600 md:h-[52vh] lg:h-[68vh]">
+        Add `VITE_GOOGLE_MAPS_EMBED_API_KEY` to enable the guess map.
+      </div>
+    );
+  }
 
-function GuessMap({ guess, onGuess, locked = false }: GuessMapProps): JSX.Element {
+  if (!isLoaded) {
+    return (
+      <div className="h-[42vh] animate-pulse rounded-2xl border border-slate-200 bg-slate-100 md:h-[52vh] lg:h-[68vh]" />
+    );
+  }
+
   return (
     <div className="h-[42vh] overflow-hidden rounded-2xl border border-slate-200 md:h-[52vh] lg:h-[68vh]">
-      <MapContainer
-        center={[20, 0]}
+      <GoogleMap
+        mapContainerStyle={MAP_CONTAINER_STYLE}
+        center={WORLD_CENTER}
         zoom={2}
-        minZoom={2}
-        worldCopyJump
-        scrollWheelZoom
-        className="h-full w-full"
+        options={options}
+        onClick={onMapClick}
+        onLoad={setMap}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <EnsureMapSize />
-        <GuessPinSetter onGuess={onGuess} locked={locked} />
-        {guess ? <Marker position={[guess.lat, guess.lng]} icon={GUESS_MARKER_ICON} /> : null}
-      </MapContainer>
+        {guess ? (
+          <GoogleAdvancedMarker
+            map={map}
+            position={guess}
+            background="#0284c7"
+            borderColor="#0c4a6e"
+            title="Your guess"
+            zIndex={20}
+          />
+        ) : null}
+      </GoogleMap>
     </div>
   );
 }
