@@ -1,0 +1,518 @@
+import type { LocationItem } from '../types/game';
+
+export const LOCATIONS: LocationItem[] = [
+  {
+    id: 'paris-eiffel',
+    title: 'Eiffel Tower',
+    lat: 48.85837,
+    lng: 2.294481,
+    countryCode: 'FR',
+    regionHints: { continent: 'Europe', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Pedro Lastra',
+        photographerProfileUrl: 'https://unsplash.com/@pedrolastra',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/Nyvq2juw4_o',
+      },
+    ],
+  },
+  {
+    id: 'rome-colosseum',
+    title: 'Colosseum',
+    lat: 41.89021,
+    lng: 12.492231,
+    countryCode: 'IT',
+    regionHints: { continent: 'Europe', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Spencer Davis',
+        photographerProfileUrl: 'https://unsplash.com/@spencerdavis',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/pr8gcMRs6w0',
+      },
+    ],
+  },
+  {
+    id: 'newyork-times-square',
+    title: 'Times Square',
+    lat: 40.758,
+    lng: -73.9855,
+    countryCode: 'US',
+    regionHints: { continent: 'North America', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Luca Bravo',
+        photographerProfileUrl: 'https://unsplash.com/@lucabravo',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/9l_326FISzk',
+      },
+    ],
+  },
+  {
+    id: 'tokyo-shibuya',
+    title: 'Shibuya Crossing',
+    lat: 35.6595,
+    lng: 139.7005,
+    countryCode: 'JP',
+    regionHints: { continent: 'Asia', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Jezael Melgoza',
+        photographerProfileUrl: 'https://unsplash.com/@jezar',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/alY6_OpdwRQ',
+      },
+    ],
+  },
+  {
+    id: 'sydney-opera',
+    title: 'Sydney Opera House',
+    lat: -33.8568,
+    lng: 151.2153,
+    countryCode: 'AU',
+    regionHints: { continent: 'Oceania', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1523428096881-5bd79d043006?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Dan Freeman',
+        photographerProfileUrl: 'https://unsplash.com/@danfreemanphoto',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/wAn4RfmXtxU',
+      },
+    ],
+  },
+  {
+    id: 'rio-christ',
+    title: 'Christ the Redeemer',
+    lat: -22.9519,
+    lng: -43.2105,
+    countryCode: 'BR',
+    regionHints: { continent: 'South America', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Agustin Diaz Gargiulo',
+        photographerProfileUrl: 'https://unsplash.com/@gustin',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/7F65HDP0-E0',
+      },
+    ],
+  },
+  {
+    id: 'cape-town-table',
+    title: 'Table Mountain',
+    lat: -33.9628,
+    lng: 18.4098,
+    countryCode: 'ZA',
+    regionHints: { continent: 'Africa', biome: 'coastal mountain', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Tobias Reich',
+        photographerProfileUrl: 'https://unsplash.com/@tobiasreich',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/4jAel3A3rc4',
+      },
+    ],
+  },
+  {
+    id: 'sanfrancisco-golden-gate',
+    title: 'Golden Gate Bridge',
+    lat: 37.8199,
+    lng: -122.4783,
+    countryCode: 'US',
+    regionHints: { continent: 'North America', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Sung Shin',
+        photographerProfileUrl: 'https://unsplash.com/@sungshin',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/6s5n6OqboY4',
+      },
+    ],
+  },
+  {
+    id: 'london-big-ben',
+    title: 'Big Ben',
+    lat: 51.5007,
+    lng: -0.1246,
+    countryCode: 'GB',
+    regionHints: { continent: 'Europe', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1488747279002-c8523379faaa?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Eva Dang',
+        photographerProfileUrl: 'https://unsplash.com/@evadng',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/EXdXLrZXS9Q',
+      },
+    ],
+  },
+  {
+    id: 'barcelona-sagrada',
+    title: 'Sagrada Familia',
+    lat: 41.4036,
+    lng: 2.1744,
+    countryCode: 'ES',
+    regionHints: { continent: 'Europe', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Enes',
+        photographerProfileUrl: 'https://unsplash.com/@enesfilm',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/0W4XLGITrHg',
+      },
+    ],
+  },
+  {
+    id: 'berlin-brandenburg',
+    title: 'Brandenburg Gate',
+    lat: 52.5163,
+    lng: 13.3777,
+    countryCode: 'DE',
+    regionHints: { continent: 'Europe', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Florian Wehde',
+        photographerProfileUrl: 'https://unsplash.com/@florianwehde',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/WBGjg0DsO_g',
+      },
+    ],
+  },
+  {
+    id: 'istanbul-hagia',
+    title: 'Hagia Sophia',
+    lat: 41.0086,
+    lng: 28.9802,
+    countryCode: 'TR',
+    regionHints: { continent: 'Europe', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1592221912790-2b4df8882ea9?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Artur Aldyrkhanov',
+        photographerProfileUrl: 'https://unsplash.com/@arturaldyrkhanov',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/XA6fD8jM9V8',
+      },
+    ],
+  },
+  {
+    id: 'dubai-burj-khalifa',
+    title: 'Burj Khalifa',
+    lat: 25.1972,
+    lng: 55.2744,
+    countryCode: 'AE',
+    regionHints: { continent: 'Asia', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'David Rodrigo',
+        photographerProfileUrl: 'https://unsplash.com/@davidrodrigo',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/7Q4VjM4xQ8U',
+      },
+    ],
+  },
+  {
+    id: 'cairo-pyramids',
+    title: 'Pyramids of Giza',
+    lat: 29.9792,
+    lng: 31.1342,
+    countryCode: 'EG',
+    regionHints: { continent: 'Africa', biome: 'desert' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1539768942893-daf53e448371?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Spencer Davis',
+        photographerProfileUrl: 'https://unsplash.com/@spencerdavis',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/j4E4hD31fko',
+      },
+    ],
+  },
+  {
+    id: 'agra-taj-mahal',
+    title: 'Taj Mahal',
+    lat: 27.1751,
+    lng: 78.0421,
+    countryCode: 'IN',
+    regionHints: { continent: 'Asia', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Jovyn Chamb',
+        photographerProfileUrl: 'https://unsplash.com/@jovynchamb',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/iWMfiInivp4',
+      },
+    ],
+  },
+  {
+    id: 'beijing-great-wall',
+    title: 'Great Wall near Beijing',
+    lat: 40.4319,
+    lng: 116.5704,
+    countryCode: 'CN',
+    regionHints: { continent: 'Asia', biome: 'mountain' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Saad Chaudhry',
+        photographerProfileUrl: 'https://unsplash.com/@saadchaudhry',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/xYWHvF6zv-E',
+      },
+    ],
+  },
+  {
+    id: 'petra-jordan',
+    title: 'Petra Treasury',
+    lat: 30.3285,
+    lng: 35.4444,
+    countryCode: 'JO',
+    regionHints: { continent: 'Asia', biome: 'desert canyon' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1601738382169-9e56d4fca123?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Ameen Fahmy',
+        photographerProfileUrl: 'https://unsplash.com/@ameenfahmy',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/_gEKtyIbRSM',
+      },
+    ],
+  },
+  {
+    id: 'machu-picchu',
+    title: 'Machu Picchu',
+    lat: -13.1631,
+    lng: -72.545,
+    countryCode: 'PE',
+    regionHints: { continent: 'South America', biome: 'mountain' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Willian Justen de Vasconcellos',
+        photographerProfileUrl: 'https://unsplash.com/@willianjusten',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/5hVN2WW6rY4',
+      },
+    ],
+  },
+  {
+    id: 'banff-lake-louise',
+    title: 'Lake Louise',
+    lat: 51.4254,
+    lng: -116.1773,
+    countryCode: 'CA',
+    regionHints: { continent: 'North America', biome: 'mountain lake' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1508264165352-258db2ebd59b?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'John Lee',
+        photographerProfileUrl: 'https://unsplash.com/@johnlee',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/oMneOBYhJxY',
+      },
+    ],
+  },
+  {
+    id: 'iceland-kirkjufell',
+    title: 'Kirkjufell',
+    lat: 64.9269,
+    lng: -23.3085,
+    countryCode: 'IS',
+    regionHints: { continent: 'Europe', biome: 'volcanic coast' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Tom Barrett',
+        photographerProfileUrl: 'https://unsplash.com/@wistomsin',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/hgGplX3PFBg',
+      },
+    ],
+  },
+  {
+    id: 'swiss-matterhorn',
+    title: 'Matterhorn',
+    lat: 45.9763,
+    lng: 7.6586,
+    countryCode: 'CH',
+    regionHints: { continent: 'Europe', biome: 'alpine' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Javier Allegue-Barros',
+        photographerProfileUrl: 'https://unsplash.com/@javier_allegue',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/C7B-ExXpOIE',
+      },
+    ],
+  },
+  {
+    id: 'norway-geiranger',
+    title: 'Geirangerfjord',
+    lat: 62.1015,
+    lng: 7.2066,
+    countryCode: 'NO',
+    regionHints: { continent: 'Europe', biome: 'fjord' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1500835556837-99ac94a94552?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Tobias Tullius',
+        photographerProfileUrl: 'https://unsplash.com/@tobiastullius',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/Fg15LdqpWrs',
+      },
+    ],
+  },
+  {
+    id: 'newzealand-milford',
+    title: 'Milford Sound',
+    lat: -44.6702,
+    lng: 167.925,
+    countryCode: 'NZ',
+    regionHints: { continent: 'Oceania', biome: 'fjord' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Erik Eastman',
+        photographerProfileUrl: 'https://unsplash.com/@erikeae',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/4HG5hlhmZg8',
+      },
+    ],
+  },
+  {
+    id: 'bali-terraces',
+    title: 'Tegalalang Rice Terraces',
+    lat: -8.4318,
+    lng: 115.2792,
+    countryCode: 'ID',
+    regionHints: { continent: 'Asia', biome: 'tropical', urban: false },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Jared Rice',
+        photographerProfileUrl: 'https://unsplash.com/@jareddrice',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/NTyBbu66_SI',
+      },
+    ],
+  },
+  {
+    id: 'singapore-marina',
+    title: 'Marina Bay',
+    lat: 1.2868,
+    lng: 103.8545,
+    countryCode: 'SG',
+    regionHints: { continent: 'Asia', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Joshua Rawson-Harris',
+        photographerProfileUrl: 'https://unsplash.com/@joshuarharris',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/YNaSz-E7Qss',
+      },
+    ],
+  },
+  {
+    id: 'hongkong-victoria',
+    title: 'Victoria Harbour',
+    lat: 22.2933,
+    lng: 114.1694,
+    countryCode: 'HK',
+    regionHints: { continent: 'Asia', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1536599018102-9f803c140fc1?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Simon Zhu',
+        photographerProfileUrl: 'https://unsplash.com/@smnzhr',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/oNf4vM4fQYQ',
+      },
+    ],
+  },
+  {
+    id: 'seattle-space-needle',
+    title: 'Space Needle',
+    lat: 47.6205,
+    lng: -122.3493,
+    countryCode: 'US',
+    regionHints: { continent: 'North America', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1502175353174-a7a70e73b362?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Taylor Vick',
+        photographerProfileUrl: 'https://unsplash.com/@tvick',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/M5tzZtFCOfs',
+      },
+    ],
+  },
+  {
+    id: 'chicago-bean',
+    title: 'Cloud Gate',
+    lat: 41.8827,
+    lng: -87.6233,
+    countryCode: 'US',
+    regionHints: { continent: 'North America', urban: true },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Sawyer Bengtson',
+        photographerProfileUrl: 'https://unsplash.com/@sawyerbengtson',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/98i9S4APWkQ',
+      },
+    ],
+  },
+  {
+    id: 'mexico-chichen-itza',
+    title: 'Chichen Itza',
+    lat: 20.6843,
+    lng: -88.5678,
+    countryCode: 'MX',
+    regionHints: { continent: 'North America', biome: 'tropical' },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Andres Molina',
+        photographerProfileUrl: 'https://unsplash.com/@andresmolina',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/Jnu4z6fSkj8',
+      },
+    ],
+  },
+  {
+    id: 'namibia-dune45',
+    title: 'Sossusvlei Dunes',
+    lat: -24.727,
+    lng: 15.34,
+    countryCode: 'NA',
+    regionHints: { continent: 'Africa', biome: 'desert', urban: false },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Hu Chen',
+        photographerProfileUrl: 'https://unsplash.com/@huchenme',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/oBbTc1VoT-0',
+      },
+    ],
+  },
+  {
+    id: 'tanzania-kili',
+    title: 'Mount Kilimanjaro',
+    lat: -3.0674,
+    lng: 37.3556,
+    countryCode: 'TZ',
+    regionHints: { continent: 'Africa', biome: 'mountain', urban: false },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Joaquin Aranoa',
+        photographerProfileUrl: 'https://unsplash.com/@joacob',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/4NQEvxW2_4w',
+      },
+    ],
+  },
+  {
+    id: 'antarctica-peninsula',
+    title: 'Antarctic Peninsula',
+    lat: -64.7333,
+    lng: -62.6333,
+    countryCode: 'AQ',
+    regionHints: { continent: 'Antarctica', biome: 'ice', urban: false },
+    photos: [
+      {
+        url: 'https://images.unsplash.com/photo-1517783999520-f068d7431a60?auto=format&fit=crop&w=1600&q=80',
+        photographerName: 'Long Ma',
+        photographerProfileUrl: 'https://unsplash.com/@longma',
+        unsplashPhotoUrl: 'https://unsplash.com/photos/9a58YsGiTPk',
+      },
+    ],
+  },
+];
+
+export const ROUND_COUNT = 5;
